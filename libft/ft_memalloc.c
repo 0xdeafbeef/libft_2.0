@@ -6,7 +6,7 @@
 /*   By: qhetting <qhetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 19:36:01 by qhetting          #+#    #+#             */
-/*   Updated: 2019/02/14 20:26:37 by qhetting         ###   ########.fr       */
+/*   Updated: 2019/02/15 16:33:07 by qhetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 t_gc_vector *g_memaloced = NULL;
 void *ft_memalloc(size_t size)
 {
-	char *ch;
+	void *ch;
+	ch = NULL;
 	if(!g_memaloced)
-		g_memaloced = init_tgc_vector();
+		g_memaloced = init_tgc_vector(sizeof(size_t *));
 	ch = malloc(size);
-	ft_bzero(ch, size + sizeof(size_t));
+	//ft_bzero(ch, size);
 	if (ch == NULL)
 		return (NULL);
-	ft_tgc_append(&g_memaloced, (ssize_t)ch);
+	ft_tgc_append(&g_memaloced, ch);
 	return (ch);
 }

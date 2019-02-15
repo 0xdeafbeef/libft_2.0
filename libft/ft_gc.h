@@ -10,9 +10,11 @@
 typedef struct s_gc_vector
 {
 	ssize_t count;
+	ssize_t len;
 	ssize_t size;
-	void *data;
+	void **data;
 }				t_gc_vector;
-void ft_tgc_append(t_gc_vector **vector, size_t data);
-t_gc_vector *init_tgc_vector();
+void ft_gc(t_gc_vector **vector);
+void ft_tgc_append(t_gc_vector **vector,void **d);
+t_gc_vector *init_tgc_vector(ssize_t ssize);
 extern t_gc_vector *g_memaloced;

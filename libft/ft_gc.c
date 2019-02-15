@@ -1,6 +1,6 @@
 #include "libft/libft.h"
 
-t_gc_vector *init_tgc_vector()
+t_gc_vector *init_tgc_vector(ssize_t ssize)
 {
 	t_gc_vector *vector;
 
@@ -8,54 +8,51 @@ t_gc_vector *init_tgc_vector()
 	ft_bzero(vector, sizeof(t_gc_vector));
 	if (vector)
 	{
-		vector->size = TGC_OPTIMAL_SIZE;
-		vector->data = malloc(sizeof(size_t) * TGC_OPTIMAL_SIZE);
+		vector->len = TGC_OPTIMAL_SIZE;
+		vector->size = ssize;
+		vector->data = malloc(ssize * TGC_OPTIMAL_SIZE);
 	}
 	return (vector);
 }
 
-void ft_free_gc_vector(t_gc_vector *vector)
+void ft_gc(t_gc_vector **vector)
 {
-	if (vector)
+	size_t size;
+
+	if (*vector)
 	{
-		free(vector->data);
-		free(vector);
+		size = (*vector)->count;
+		while (size--)
+		{
+			free((*vector)->data[size]);
+		}
+		free((*vector)->data);
+		free(*vector);
 	}
 }
 
 void ft_resize_vector(t_gc_vector **vector)
 {
-	ssize_t ssize;
-	ssize_t count;
-	ssize_t *data;
-
+	void **temp;
+	void **vec_data;
 	if (*vector)
 	{
-		count = (*vector)->count;
-		ssize = (*vector)->size;
-		data = malloc((count * 2) * sizeof(ssize_t));
-		data = ft_memcpy(data, (*vector)->data, count);
-		free((*vector)->data);
-		(*vector)->size = ssize * 2;
-		(*vector)->count = count;
-		(*vector)->data = data;
+		temp = (*vector)->data;
+		vec_data = malloc(((*vector)->len * (*vector)->size)*2);
+		vec_data = ft_memmove(vec_data, temp, (*vector)->len * (*vector)->size);
+		free(temp);
+		(*vector)->data = vec_data;
+		(*vector)->len = (*vector)->len * 2;
 	}
 }
 
-void ft_tgc_append(t_gc_vector **vector, size_t data)
+void ft_tgc_append(t_gc_vector **vector, void **data)
 {
-	t_gc_vector *temp;
-
-	temp = *vector;
-	if (temp)
+	if (*vector)
 	{
-		if (temp->size - temp->count <= 1)
-		{
+		if ((*vector)->len - (*vector)->count <= 1)
 			ft_resize_vector(vector);
-			temp = *vector;
-		}
-		temp->count += 1;
-		(*vector)->data = data;
+		(*vector)->data[(*vector)->count] = data;
+		++ (*vector)->count;
 	}
-	*vector = temp;
 }
