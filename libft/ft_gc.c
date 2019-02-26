@@ -38,7 +38,7 @@ void ft_resize_vector(t_gc_vector **vector)
 	if (*vector)
 	{
 		temp = (*vector)->data;
-		vec_data = malloc(((*vector)->len * (*vector)->size)*2);
+		vec_data = malloc(((*vector)->len * (*vector)->size) * 2);
 		vec_data = ft_memmove(vec_data, temp, (*vector)->len * (*vector)->size);
 		free(temp);
 		(*vector)->data = vec_data;
@@ -53,6 +53,31 @@ void ft_tgc_append(t_gc_vector **vector, void **data)
 		if ((*vector)->len - (*vector)->count <= 1)
 			ft_resize_vector(vector);
 		(*vector)->data[(*vector)->count] = data;
-		++ (*vector)->count;
+		++(*vector)->count;
+	}
+}
+
+void ft_free(void *data)
+{
+	ssize_t count;
+
+	if (!g_memaloced || !g_memaloced->data)
+		return;
+	count = 0;
+	if (data)
+	{
+		while (count < g_memaloced->count)
+		{
+			if (!ft_memcmp(data, (g_memaloced->data + (g_memaloced->size * count))))
+			{
+				free((void *) (g_memaloced->data + (count * g_memaloced->size)));
+//				bzero(g_memaloced->data);
+				break;
+			}
+			count++;
+		}
+		ft_memmove(g_memaloced->data + (count * g_memaloced->size),
+				   (g_memaloced->data + count * g_memaloced->size + g_memaloced->size), g_memaloced->count - count);
+		g_memaloced->size--;
 	}
 }

@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././libft/ft_gc.h
+stddef.h
+-
+stdio.h
+-
+stdlib.h
+-
+
+.././libft/libft.h
+string.h
+-
+unistd.h
+-
+stdlib.h
+-
+fcntl.h
+.././libft/fcntl.h
+ft_gc.h
+.././libft/ft_gc.h
+
+/home/odm3n/Documents/libft_2.0/libft/ft_gc.c
+libft/libft.h
+/home/odm3n/Documents/libft_2.0/libft/libft/libft.h
+

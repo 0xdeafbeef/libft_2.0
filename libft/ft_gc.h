@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include <ntsid.h>
+//#include <ntsid.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,4 +17,5 @@ typedef struct s_gc_vector
 void ft_gc(t_gc_vector **vector);
 void ft_tgc_append(t_gc_vector **vector,void **d);
 t_gc_vector *init_tgc_vector(ssize_t ssize);
+void ft_free(void *data);
 extern t_gc_vector *g_memaloced;
