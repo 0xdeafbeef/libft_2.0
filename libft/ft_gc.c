@@ -60,24 +60,26 @@ void ft_tgc_append(t_gc_vector **vector, void **data)
 void ft_free(void *data)
 {
 	ssize_t count;
+	char *temp;
 
-	if (!g_memaloced || !g_memaloced->data)
+	temp = malloc((size_t) g_memaloced->size);
+	if (!g_memaloced || !g_memaloced->data || !data)
 		return;
 	count = 0;
-	if (data)
+	while (count < g_memaloced->count)
 	{
-		while (count < g_memaloced->count)
+		ft_memcpy(temp, g_memaloced->data + (g_memaloced->size * count), (size_t) g_memaloced->size);
+		if (!ft_memcmp(data, temp, (size_t) g_memaloced->size))
 		{
-			if (!ft_memcmp(data, (g_memaloced->data + (g_memaloced->size * count))))
-			{
-				free((void *) (g_memaloced->data + (count * g_memaloced->size)));
-//				bzero(g_memaloced->data);
-				break;
-			}
-			count++;
+			free(g_memaloced->data[count]);
+			g_memaloced->data[count] = NULL;
+			bzero(g_memaloced->data + (count * g_memaloced->size), g_memaloced->size);
+			break;
 		}
-		ft_memmove(g_memaloced->data + (count * g_memaloced->size),
-				   (g_memaloced->data + count * g_memaloced->size + g_memaloced->size), g_memaloced->count - count);
-		g_memaloced->size--;
+		count++;
 	}
+//	ft_memmove(g_memaloced->data + (count * g_memaloced->size),
+//			   (g_memaloced->data + count * g_memaloced->size + g_memaloced->size), g_memaloced->count - count);
+//	g_memaloced->count--;
+	free(temp);
 }
