@@ -21,10 +21,10 @@ void ft_gc(t_gc_vector **vector)
 
 	if (*vector)
 	{
-		size = (*vector)->count;
+		size = (size_t) (*vector)->count;
 		while (size--)
-		{
-			free((*vector)->data[size]);
+		{	if ((*vector)->data[size])
+				free((*vector)->data[size]);
 		}
 		free((*vector)->data);
 		free(*vector);
@@ -69,7 +69,7 @@ void ft_free(void *data)
 
 		if ((ptrdiff_t) g_memaloced->data[count] == (ptrdiff_t) data)
 		{
-			free(g_memaloced->data[count]);
+			free(data);
 			g_memaloced->data[count] = NULL;
 			break;
 		}

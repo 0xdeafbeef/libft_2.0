@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
-project(libft C)
+project(libft_updatable C)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 
 include_directories(.)
 
-add_library(libft
+add_executable(libft_updatable
         ft_atoi.c
         ft_bzero.c
         ft_cpyuntil.c
@@ -80,5 +80,4 @@ add_library(libft
         get_next_line.c
         get_next_line.h
         libft.h
-        strlen.h
-        ft_isuppercase.c)
+        strlen.h main.c)
