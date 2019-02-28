@@ -93,8 +93,6 @@ int					ft_cpyuntil(char **dst, char *src, char c);
 void				ft_lstaddback(t_list *lst, t_list *new);
 char				*ft_strjoinch(char const *s1, char c);
 void				ft_swap(int *a, int *b);
-t_gc_vector 		*create_tgc_vector(size_t size);
-void *ft_realloc_gc(void **prev, size_t new_size);
 int					ft_isupper(int ch);
 
 #endif
