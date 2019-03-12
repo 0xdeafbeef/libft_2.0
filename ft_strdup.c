@@ -6,7 +6,7 @@
 /*   By: qhetting <qhetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 17:13:52 by qhetting          #+#    #+#             */
-/*   Updated: 2019/02/26 21:47:55 by qhetting         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:14:49 by qhetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char *ft_strdup(const char *src)
 	size_t l;
 
 	l = ft_strlen(src);
-	tmp = malloc(l + 1);
+	tmp = ft_memalloc(l + 1);
 	ft_memcpy(tmp, src, l + 1);
 	return tmp;
 }

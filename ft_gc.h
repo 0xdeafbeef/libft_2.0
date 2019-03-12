@@ -1,17 +1,19 @@
 #ifndef GC_FT_GC_H
-#define GC_FT_GC_H
 #include <stddef.h>
 #include <stdio.h>
+
 #include <stdlib.h>
-typedef struct s_malloced
+#define GC_FT_GC_H
+ #define TGC_OPTIMAL_SIZE (2u<<5u)
+typedef struct s_gc_vector
 {
-	struct s_malloced *next;
-	void *pointer;
-	char is_freed;
-}			t_malloced;
-extern t_malloced *g_malloced;
-t_malloced *init(void *ptr);
-void append(void *ptr);
-void ft_gc();
-void ft_free(void **ptr);
+	ssize_t count;
+	ssize_t len;
+	ssize_t size;
+	void **data;
+}				t_gc_vector;
+void ft_gc(t_gc_vector **vector);
+void ft_tgc_append(t_gc_vector **vector,void **d);
+t_gc_vector *init_tgc_vector(ssize_t ssize);
+extern t_gc_vector *g_memaloced;
 #endif //GC_FT_GC_H
